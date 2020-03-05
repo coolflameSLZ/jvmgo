@@ -2,6 +2,9 @@ package rtda
 
 import "math"
 
+/**
+局部变量表
+*/
 type LocalVars []Slot
 
 func newLocalVars(maxLocals uint) LocalVars {
@@ -11,6 +14,10 @@ func newLocalVars(maxLocals uint) LocalVars {
 	return nil
 }
 
+/**
+操作局部变量表和操作数栈的指令
+都是隐含类型信息的
+*/
 // int
 func (self LocalVars) SetInt(index uint, val int32) {
 	self[index].num = val
@@ -22,6 +29,7 @@ func (self LocalVars) GetInt(index uint) int32 {
 // float
 // float -> byte -> int
 // float变量可以先转成int类型，然后按int变量来处理
+
 func (self LocalVars) SetFloat(index uint, val float32) {
 	bits := math.Float32bits(val)
 	self[index].num = int32(bits)

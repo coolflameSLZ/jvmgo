@@ -8,20 +8,20 @@ type Thread struct {
 func NewThread(stack *Stack) *Thread {
 	return &Thread{stack: NewStack(1024)}
 }
-
-func (t *Thread) Pc() int {
-	return t.pc
+func (self *Thread) PC() int {
+	return self.pc
+}
+func (self *Thread) SetPC(pc int) {
+	self.pc = pc
 }
 
-func (t *Thread) SetPc(pc int) {
-	t.pc = pc
+func (self *Thread) PushFrame(frame *Frame) {
+	self.stack.push(frame)
 }
-func (t *Thread) PushFrame(frame *Frame) {
-	t.stack.push(frame)
+func (self *Thread) PopFrame() *Frame {
+	return self.stack.pop()
 }
-func (t *Thread) PopFrame() *Frame {
-	t.stack.pop()
-}
-func (t *Thread) CurrentFrame() *Frame {
-	t.stack.top()
+
+func (self *Thread) CurrentFrame() *Frame {
+	return self.stack.top()
 }
